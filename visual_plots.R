@@ -26,11 +26,11 @@ plot_character_class <- characters %>%
   mutate(attribut = factor(attribut, levels = c("weight", "speed", "acceleration", "mini_turbo", "traction", "handling")))
 
 # Used when creating the Heatmap for each character instead of the groups
-         # character = factor(character, levels = c("Baby Mario", "Baby Luigi","Baby Peach","Baby Daisy","Baby Rosalina","Lemmy Koopa","Mii Light",    
-         #                                          "Toad"          ,  "Shy Guy"       ,  "Koopa Troopa" ,   "Lakitu"     ,     "Wendy Koopa"    , "Larry Koopa"  ,   "Toadette" ,      
-         #                                          "Peach"      ,     "Daisy"     ,      "Yoshi"       ,    "Mario"       ,    "Luigi"     ,      "Iggy Koopa"   ,   "Ludwig Koopa" ,  
-         #                                          "Mii Medium"  ,    "Donkey Kong"  ,   "Waluigi"     ,    "Rosalina"    ,    "Roy Koopa"    ,   "Metal Mario"   ,  "Pink Gold Peach",
-         #                                          "Wario"     ,      "Bowser"     ,     "Morton Koopa"  ,  "Mii Heavy" )))
+# character = factor(character, levels = c("Baby Mario", "Baby Luigi","Baby Peach","Baby Daisy","Baby Rosalina","Lemmy Koopa","Mii Light",    
+#                                          "Toad"          ,  "Shy Guy"       ,  "Koopa Troopa" ,   "Lakitu"     ,     "Wendy Koopa"    , "Larry Koopa"  ,   "Toadette" ,      
+#                                          "Peach"      ,     "Daisy"     ,      "Yoshi"       ,    "Mario"       ,    "Luigi"     ,      "Iggy Koopa"   ,   "Ludwig Koopa" ,  
+#                                          "Mii Medium"  ,    "Donkey Kong"  ,   "Waluigi"     ,    "Rosalina"    ,    "Roy Koopa"    ,   "Metal Mario"   ,  "Pink Gold Peach",
+#                                          "Wario"     ,      "Bowser"     ,     "Morton Koopa"  ,  "Mii Heavy" )))
 
 # Heatmap of the different Charactergroups and their values
 ggplot(plot_character_class, aes(x = attribut, y = group)) +
@@ -76,7 +76,7 @@ plot_bodies_class <- bodies %>%
 ggplot(plot_bodies_class, aes(x = attribut, y = reorder(comb_id, desc(sum_diff)))) +
   geom_tile(aes(fill = mean)) +
   geom_text(aes(label = mean)) +
-
+  
   # Different Colorscale to highlight positive/negative values
   scale_fill_gradient2(high = "#fde725", low = "#440154", mid = "white") +
   theme_classic() +
@@ -198,24 +198,40 @@ give_personal_best <- function(speed_score, acceleration_score,
     ) %>% 
     slice_max(custom_score, n = 3)
   
+  personal_score$position = 1:nrow(personal_score)
+  
   return(personal_score)
 }
 
 # Example
-personal_score <- give_personal_best(2, 1, 1, 0.5, 5, 1)
+personal_score <- give_personal_best(5, 1, 1, 0.5, 5, 1)
 
 tibble(personal_score)
 
 # Drawing the best combination into the histogram above
-ggplot(cross_df_archetype, aes(x = archetype_lvl)) +
-  geom_histogram(bins = 50) +
-  scale_x_continuous(limits = c(-1.25, 1.25)) +
-  theme_minimal() +
-  labs(title = "Histogram of Archetype Scores", subtitle = "-1 = Handling and Accel., 1 = Heavy and Speed", x = "Score", y = NULL) +
+give_personal_plot <- function(speed_score, acceleration_score, 
+                               weight_score, handling_score, 
+                               traction_score, mini_turbo_score) {
   
-  geom_vline(data = personal_score, aes(xintercept = archetype_lvl, alpha = archetype_lvl), color = "green") +
-  theme(legend.position = "none")
+  p <- ggplot(cross_df_archetype, aes(x = archetype_lvl)) +
+    geom_histogram(bins = 50) +
+    scale_x_continuous(limits = c(-1.25, 1.25)) +
+    theme_minimal() +
+    labs(title = "Histogram of Archetype Scores", subtitle = "-1 = Handling and Accel., 1 = Heavy and Speed | Alpha = Position", 
+         x = "Score", y = NULL,
+         caption = paste("Speed: ", speed_score, ", Acc.: ", acceleration_score,
+                         ", Weight: ", weight_score, ", Handling: ", handling_score,
+                         ", Traction: ", traction_score, ", Turbo: ", mini_turbo_score, sep = "")) +
+    
+    geom_vline(data = personal_score, aes(xintercept = archetype_lvl, alpha = rev(position)), color = "green", size = 1.3) +
+    theme(legend.position = "none")
+  
+  return(p)
+}
 
+give_personal_plot(5, 1, 1, 0.5, 5, 1)
+
+ggsave("Plots/personal_score_archetype.pdf", width = 10, height = 6)
 
 # 5. What's next? ####
 
