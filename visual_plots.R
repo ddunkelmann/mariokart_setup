@@ -161,7 +161,7 @@ GGally::ggpairs(cross_df_archetype, columns = 5:10)
 # This information gives proof to the ideas of archetypes above
 
 # Saving
-ggsave("Plots/cor_matrix.pdf", width = 15, height = 15)
+ggsave("Plots/cor_matrix.jpeg", width = 15, height = 15)
 
 
 # 3. Visualizing Scores ####
@@ -231,7 +231,7 @@ give_personal_plot <- function(speed_score, acceleration_score,
 
 give_personal_plot(5, 1, 1, 0.5, 5, 1)
 
-ggsave("Plots/personal_score_archetype.pdf", width = 10, height = 6)
+ggsave("Plots/personal_score_archetype.jpeg", width = 10, height = 6)
 
 # 5. What's next? ####
 

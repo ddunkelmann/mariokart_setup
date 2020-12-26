@@ -23,7 +23,7 @@ all_col_toLower <- function(df) {
 
 # Load Data
 csv_characters <- read_csv("Data/characters.csv")
-view(csv_characters)
+tibble(csv_characters)
 
 # Clean the Dataframe (different Speed and Handling Values are weighted approxamitely to their share in each track)
 clean_characters <- csv_characters %>% 
@@ -179,7 +179,7 @@ cross_df <- crossing(char = unique_characters$group,
   # Removing the single columns of each part
   select(-c(ends_with("_body"), ends_with("_char"), ends_with("_tires"), ends_with("_glider")))
 
-view(cross_df)
+tibble(cross_df)
 
 rm(unique_bodies_comb, unique_characters, unique_tires_comb, unique_gliders_comb)
 # 4. Creating a formula for weighted evaluation of the combinations. #####
