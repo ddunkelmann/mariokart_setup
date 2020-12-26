@@ -1,0 +1,11 @@
+Body,Type,Speed,Speed (Water),Speed (Air),Speed (Ground),Acceleration,Weight,Handling,Handling (Water),Handling (Air),Handling(Ground),Traction,Mini Turbo
+Super,Speed,0,0,0.25,0,0,0,0,0,0,0,0,0
+Waddle Wing,Speed,0,0,0.25,0,0,0,0,0,0,0,0,0
+Plane,Speed,0,0,0.25,0,0,0,0,0,0,0,0,0
+Wario Wing,Speed,0,0,0.25,0,0,0,0,0,0,0,0,0
+Gold,Speed,0,0,0.25,0,0,0,0,0,0,0,0,0
+Flower,Acceleration,0,0,0,0,0.25,-0.25,0,0,0.25,0,0,0.25
+Peach Parasol,Acceleration,0,0,0,0,0.25,-0.25,0,0,0.25,0,0,0.25
+MKTV Parafoil,Acceleration,0,0,0,0,0.25,-0.25,0,0,0.25,0,0,0.25
+Bowser Kite,Acceleration,0,0,0,0,0.25,-0.25,0,0,0.25,0,0,0.25
+Cloud,Acceleration,0,0,0,0,0.25,-0.25,0,0,0.25,0,0,0.25
